@@ -1,10 +1,11 @@
 -- Milestone part 2
 
+
 CREATE TABLE IF NOT EXISTS `Competes` (
     CountryName VARCHAR(100),
     SportID int NOT NULL,
     BeginTime TIMESTAMP NOT NULL,
-    EndTime TIMESTAMP NOT NULL
+    EndTime TIMESTAMP NOT NULL,
     Venue VARCHAR(50)
 );
 
@@ -15,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `Sport` (
 
 CREATE TABLE IF NOT EXISTS `SportTypes` (
     sportID int NOT NULL,
-    sportType VARCHAR NOT NULL
+    sportType VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS `MaleDivision` (
@@ -30,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `FemaleDivision` (
 
 CREATE TABLE IF NOT EXISTS `TeamSport` (
     ID int NOT NULL,
-    teamName VARCHAR (100)
+    teamName VARCHAR (100),
     minAthletes int,
     maxAthletes int
 );
@@ -93,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `AccommodationTypes` (
 
 CREATE TABLE IF NOT EXISTS `Room` (
     AccommodationName VARCHAR(100),
-    RoomNumber int NOT NULL
+    RoomNumber int NOT NULL,
     maxOccupancy int
 );
 
