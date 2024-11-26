@@ -156,8 +156,8 @@ CREATE TABLE IF NOT EXISTS `EventRound` (
 -- Officiates table
 CREATE TABLE IF NOT EXISTS `Officiates` (
     `OfficialID` int NOT NULL,
-    `BeginTime` TIMESTAMP NOT NUll,
-    `EndTime` TIMESTAMP NOT NULL,
+    `BeginTimeStamp` TIMESTAMP NOT NUll,
+    `EndTimeStamp` TIMESTAMP NOT NULL,
     `Venue` VARCHAR (100),
 
     PRIMARY KEY (`OfficialID`),

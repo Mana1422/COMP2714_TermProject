@@ -1,18 +1,16 @@
 -- Milestone part 2
-
-
 CREATE TABLE IF NOT EXISTS `Competes` (
     CountryName VARCHAR(100),
     SportID int NOT NULL,
-    BeginTime TIMESTAMP NOT NULL,
-    EndTime TIMESTAMP NOT NULL,
-    Venue VARCHAR(50),
+    BeginTimeStamp TIMESTAMP NOT NULL,
+    EndTimeStamp TIMESTAMP NOT NULL,
+    VenueName VARCHAR(50),
 
     PRIMARY KEY (`CountryName`),
     PRIMARY KEY (`SportID`),
-    PRIMARY KEY (`BeginTime`),
-    PRIMARY KEY (`EndTime`),
-    PRIMARY KEY (`Venue`)
+    PRIMARY KEY (`BeginTimeStamp`),
+    PRIMARY KEY (`EndTimeStamp`),
+    PRIMARY KEY (`VenueName`)
 );
 
 CREATE TABLE IF NOT EXISTS `Sport` (
@@ -78,22 +76,22 @@ CREATE TABLE IF NOT EXISTS `venueType` (
 
 CREATE TABLE IF NOT EXISTS `Athlete` (
     ID int NOT NULL,
-    firstName VARCHAR (50),
-    lastName VARCHAR(50),
-    weightKg FLOAT,
-    sex VARCHAR(10),
+    FirstName VARCHAR (50),
+    LastName VARCHAR(50),
+    WeightKg FLOAT,
+    Sex VARCHAR(10),
     Birthday DATE,
     CountryName VARCHAR (100),
-    sportID int,
+    SportID int,
     AccommodationName VARCHAR(100),
-    roomNo int,
-    teamName VARCHAR(100),
+    RoomNumber int,
+    TeamName VARCHAR(100),
 
     PRIMARY KEY (`ID`)
 );
 
 CREATE TABLE IF NOT EXISTS `Country` (
-    countryName VARCHAR(100) NOT NULL,
+    Name VARCHAR(100) NOT NULL,
     NumGolds int,
     NumSilver int,
     NumBronze int,
@@ -102,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `Country` (
 );
 
 CREATE TABLE IF NOT EXISTS `Results` (
-    countryName VARCHAR(100),
+    CountryName VARCHAR(100),
     EventBeginTimeStamp TIMESTAMP NOT NULL,
     EventEndTimeStamp TIMESTAMP NOT NULL,
     venueName VARCHAR (100),
@@ -115,9 +113,9 @@ CREATE TABLE IF NOT EXISTS `Results` (
 );
 
 CREATE TABLE IF NOT EXISTS `Accommodation` (
-    AccommodationName VARCHAR (100) NOT NULL,
-    accommodationAddress VARCHAR (100),
-    maxOccupancy int,
+    Name VARCHAR (100) NOT NULL,
+    Address VARCHAR (100),
+    MaxOccupancy int,
 
     PRIMARY KEY (`AccommodationName`)
 );
@@ -131,9 +129,9 @@ CREATE TABLE IF NOT EXISTS `AccommodationTypes` (
 );
 
 CREATE TABLE IF NOT EXISTS `Room` (
+    Number int NOT NULL,
     AccommodationName VARCHAR(100),
-    RoomNumber int NOT NULL,
-    maxOccupancy int,
+    MaxOccupancy int,
 
     PRIMARY KEY (`AccommodationName`),
     PRIMARY KEY (`RoomNumber`)
@@ -143,9 +141,9 @@ CREATE TABLE IF NOT EXISTS `Transportation` (
     AccommodationName VARCHAR(100) NOT NULL,
     EventBeginTimeStamp TIMESTAMP NOT NULL,
     EventEndTimeStamp TIMESTAMP NOT NULL,
-    venueName VARCHAR(100) NOT NULL,
-    venueType VARCHAR (100),
-    maxCapacity int,
+    VenueName VARCHAR(100) NOT NULL,
+    VenueType VARCHAR (100),
+    MaxCapacity int,
 
     PRIMARY KEY (`AccommodationName`),
     PRIMARY KEY (`EventBeginTimeStamp`),
