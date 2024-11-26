@@ -9,7 +9,6 @@ CREATE TABLE IF NOT EXISTS `Staff` (
     PRIMARY KEY (`ID`)
 );
 
-
 -- Salaried table
 CREATE TABLE IF NOT EXISTS `Salaried` (
     `SalariedID` int,
@@ -32,3 +31,40 @@ CREATE TABLE IF NOT EXISTS `Sponsor` (
     -- PRIMARY KEY (`Name`),
     -- ADD CONSTRAINT `VolunteerFK`
 )
+
+-- Athlete table
+CREATE TABLE Athlete IF NOT EXI(
+	`ID` INTEGER NOT NULL,
+	`FirstName` VARCHAR(20),
+	`MiddleName` VARCHAR(20),
+	`LastName` VARCHAR(20),
+	`WeightKg` DECIMAL(5, 2) UNSIGNED
+	`Sex` VARCHAR(10),
+	`Birthday` DATE,
+	`CountryName` VARCHAR(20)
+	`SportID` INTEGER,
+	`AccomodationName` VARCHAR(20),
+	`RoomNo` INTEGER,
+    PRIMARY KEY (ID),
+);
+
+-- Athlete Constraints
+ALTER TABLE Athlete ADD CONSTRAINT CountryNameFK (FOREIGN KEY CountryName REFERENCES Country (Name)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+ALTER TABLE Athlete ADD CONSTRAINT SportIDFK (FOREIGN KEY SportID REFERENCES Sport (ID)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+ALTER TABLE Athlete ADD CONSTRAINT AccomodationNameFK (FOREIGN KEY AccomodationName REFERENCES Accomodation (Name)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+
+ALTER TABLE Athlete ADD CONSTRAINT RoomNo (FOREIGN KEY RoomNo REFERENCES Room (No)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
