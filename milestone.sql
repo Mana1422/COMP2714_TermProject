@@ -166,3 +166,10 @@ CREATE TABLE IF NOT EXISTS `Officiates` (
     PRIMARY KEY (`Venue`)
 );
 
+
+
+
+-- Constraints
+
+
+
