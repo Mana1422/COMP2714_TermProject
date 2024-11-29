@@ -194,21 +194,18 @@ CREATE TABLE IF NOT EXISTS SportTypes (
 
 CREATE TABLE IF NOT EXISTS `Men'sDivision` (
     ID int NOT NULL,
-    AthleteName VARCHAR(100),
 
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE IF NOT EXISTS `Women'sDivision` (
     ID int NOT NULL,
-    AthleteName VARCHAR(100),
 
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE IF NOT EXISTS TeamSport (
     ID int NOT NULL,
-    TeamName VARCHAR (100),
     MinAthletes int,
     MaxAthletes int,
 
@@ -217,7 +214,6 @@ CREATE TABLE IF NOT EXISTS TeamSport (
 
 CREATE TABLE IF NOT EXISTS IndividualSport (
     ID int NOT NULL,
-    SportName VARCHAR(100),
 
     PRIMARY KEY (ID)
 );
