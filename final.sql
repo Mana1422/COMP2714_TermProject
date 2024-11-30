@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS Official (
 CREATE TABLE IF NOT EXISTS Sponsor (
     Name VARCHAR(50) NOT NULL,
     Industry VARCHAR (50) NOT NULL,
-    ContactNo int,
+    ContactNo BIGINT,
 
     PRIMARY KEY (Name)
 );
@@ -148,7 +148,6 @@ CREATE TABLE IF NOT EXISTS Event (
 
     PRIMARY KEY (BeginTimeStamp, EndTimeStamp, VenueName)
 );
-
 
 CREATE TABLE IF NOT EXISTS EventRound (
     EventBeginTimeStamp TIMESTAMP NOT NULL,
@@ -296,10 +295,10 @@ CREATE TABLE IF NOT EXISTS Transportation (
     EventBeginTimeStamp TIMESTAMP NOT NULL,
     EventEndTimeStamp TIMESTAMP NOT NULL,
     VenueName VARCHAR(100) NOT NULL,
-    VenueType VARCHAR (100),
+    Type VARCHAR (100),
     MaxCapacity int,
 
-    PRIMARY KEY (AccommodationName, EventBeginTimeStamp, EventEndTimeStamp, VenueName)
+    PRIMARY KEY (AccommodationName, EventBeginTimeStamp, EventEndTimeStamp, VenueName, Type, MaxCapacity)
 );
 
 -- CONTRAINTS
@@ -405,7 +404,17 @@ VALUES
 (11, 'David', 'Hall', 79.9, 'Male', '1989-08-19', 'Canada', 102, 'Olympic Village', 216),
 (12, 'Ethan', 'Walker', 67.5, 'Male', '1994-03-02', 'Canada', 102, 'Olympic Village', 217),
 (13, 'Logan', 'King', 90.1, 'Male', '1996-02-14', 'Canada', 102, 'Athletes Inn', 218),
-(14, 'Luke', 'Hughes', 72.7, 'Male', '1991-11-25', 'Canada', 102, 'Olympic Village', 219);
+(14, 'Luke', 'Hughes', 72.7, 'Male', '1991-11-25', 'Canada', 102, 'Olympic Village', 219),
+(15, 'Pierre', 'Martin', 78.4, 'Male', '1993-03-15', 'France', 101, 'Olympic Village', 301),
+(16, 'Jean', 'Dupont', 82.1, 'Male', '1990-07-22', 'France', 101, 'Olympic Village', 302),
+(17, 'Claude', 'Durand', 75.3, 'Male', '1992-01-12', 'France', 101, 'Olympic Village', 303),
+(18, 'Luc', 'Bernard', 79.8, 'Male', '1989-10-05', 'France', 101, 'Athletes Inn', 201),
+(19, 'Antoine', 'Rousseau', 73.5, 'Male', '1995-04-25', 'France', 101, 'Athletes Inn', 202),
+(20, 'Nicolas', 'Moreau', 85.0, 'Male', '1987-11-19', 'France', 101, 'Olympic Village', 304),
+(21, 'Henri', 'Leclerc', 76.9, 'Male', '1991-08-13', 'France', 101, 'Athletes Inn', 203),
+(22, 'Julien', 'Petit', 70.4, 'Male', '1996-09-07', 'France', 101, 'Olympic Village', 305),
+(23, 'Victor', 'Girard', 77.6, 'Male', '1988-06-01', 'France', 101, 'Athletes Inn', 204),
+(24, 'Arnaud', 'Blanc', 80.2, 'Male', '1994-12-20', 'France', 101, 'Olympic Village', 306);
 
 INSERT INTO Country (Name, NumGolds, NumSilver, NumBronze)
 VALUES
@@ -433,15 +442,33 @@ VALUES
 
 INSERT INTO Sponsor (Name, Industry, ContactNo)
 VALUES
-('Nike', 'Sportswear', 123456789),
-('Adidas', 'Sportswear', 987654321),
-('Coca-Cola', 'Beverages', 456789123);
+('Nike', 'Sportswear', 1234567890),
+('Adidas', 'Sportswear', 2345678901),
+('Coca-Cola', 'Beverages', 3456789012),
+('Visa', 'Finance', 4567890123),
+('Pepsi', 'Beverages', 5678901234),
+('Samsung', 'Technology', 6789012345),
+('Toyota', 'Automotive', 7890123456),
+('Rolex', 'Luxury Goods', 8901234567),
+('Huawei', 'Technology', 9012345678),
+('BNP Paribas', 'Finance', 1230984567),
+('GlobalFit', 'Fitness', 1234567890),
+('HealthFirst', 'Healthcare', 9876543210),
+('PrimeAthletics', 'Sports Equipment', 2345678901),
+('EnduraSports', 'Apparel', 3456789012),
+('PeakPerformance', 'Nutrition', 4567890123),
+('AthleteX', 'Technology', 5678901234),
+('ChampionGear', 'Sports Equipment', 6789012345),
+('EliteTracks', 'Training Facilities', 7890123456),
+('PowerFuel', 'Energy Drinks', 8901234567),
+('RecoveryPro', 'Recovery Equipment', 9012345678);
 
 INSERT INTO Event (BeginTimeStamp, EndTimeStamp, VenueName, SportID)
 VALUES
 ('2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 101),
 ('2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 102),
-('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104);
+('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104),
+('2024-07-25 14:00:00', '2024-07-25 17:00:00', 'National Stadium', 101);
 
 INSERT INTO SalariedStaffs (SalariedStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HourlyWageEuros, HoursWorked, Role)
 VALUES
@@ -461,12 +488,48 @@ VALUES
 INSERT INTO TeamSponsor (SponsorName)
 VALUES
 ('Nike'),
-('Adidas');
+('Adidas'),
+('Coca-Cola'),
+('Visa'),
+('Pepsi'),
+('Samsung'),
+('Toyota'),
+('Rolex'),
+('Huawei'),
+('BNP Paribas'),
+('GlobalFit'),
+('HealthFirst'),
+('PrimeAthletics'),
+('EnduraSports'),
+('PeakPerformance'),
+('AthleteX'),
+('ChampionGear'),
+('EliteTracks'),
+('PowerFuel'),
+('RecoveryPro');
 
 INSERT INTO TeamSponsorship (TeamSponsorName, TeamCountryName, TeamSportID, SponsorshipType, ContractDate, ContractAmount)
 VALUES
-('Nike', 'USA', 101, 'Gold', '2024-01-15', 500000.00),
-('Adidas', 'Canada', 102, 'Silver', '2024-02-10', 300000.00);
+('Nike', 'France', 101, 'Apparel Sponsorship', '2023-01-15', 500000.00),
+('Adidas', 'France', 101, 'Footwear Sponsorship', '2023-02-10', 450000.00),
+('Coca-Cola', 'France', 101, 'Beverage Sponsorship', '2023-03-01', 400000.00),
+('Visa', 'France', 101, 'Financial Sponsorship', '2023-04-20', 600000.00),
+('Pepsi', 'France', 101, 'Beverage Sponsorship', '2023-05-30', 350000.00),
+('Samsung', 'France', 101, 'Technology Sponsorship', '2023-06-15', 700000.00),
+('Toyota', 'France', 101, 'Automotive Sponsorship', '2023-07-10', 800000.00),
+('Rolex', 'France', 101, 'Luxury Sponsorship', '2023-08-05', 750000.00),
+('Huawei', 'France', 101, 'Technology Sponsorship', '2023-09-12', 650000.00),
+('BNP Paribas', 'France', 101, 'Financial Sponsorship', '2023-10-25', 550000.00),
+('GlobalFit', 'USA', 103, 'Official Partner', '2023-01-15', 500000.00),
+('HealthFirst', 'USA', 103, 'Medical Partner', '2023-02-10', 300000.00),
+('PrimeAthletics', 'USA', 103, 'Equipment Provider', '2023-03-20', 250000.00),
+('EnduraSports', 'USA', 103, 'Apparel Sponsor', '2023-04-05', 400000.00),
+('PeakPerformance', 'USA', 103, 'Nutrition Partner', '2023-05-12', 350000.00),
+('AthleteX', 'USA', 103, 'Technology Sponsor', '2023-06-01', 450000.00),
+('ChampionGear', 'USA', 103, 'Gear Sponsor', '2023-07-15', 300000.00),
+('EliteTracks', 'USA', 103, 'Facility Sponsor', '2023-08-08', 600000.00),
+('PowerFuel', 'USA', 103, 'Energy Partner', '2023-09-25', 200000.00),
+('RecoveryPro', 'USA', 103, 'Recovery Equipment Sponsor', '2023-10-18', 275000.00);
 
 INSERT INTO Venue (name, address, maxCapacity)
 VALUES
@@ -485,7 +548,6 @@ VALUES
 ('Olympic Village', '1 Main St', 500),
 ('Athletes Inn', '2 Athlete Rd', 200);
 
-
 INSERT INTO Sport (ID, Name)
 VALUES
 (101, 'Soccer'),
@@ -500,10 +562,13 @@ VALUES
 (103, 'Team'),
 (104, 'Individual');
 
-INSERT INTO Transportation (AccommodationName, EventBeginTimeStamp, EventEndTimeStamp, venueName, venueType, maxCapacity)
+INSERT INTO Transportation (AccommodationName, EventBeginTimeStamp, EventEndTimeStamp, venueName, Type, maxCapacity)
 VALUES
 ('Olympic Village', '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 'Outdoor', 300),
-('Athletes Inn', '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 'Indoor', 100);
+('Athletes Inn', '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 'Indoor', 100),
+('Olympic Village', '2024-07-25 14:00:00', '2024-07-25 17:00:00', 'National Stadium', 'Bus', 50),
+('Olympic Village', '2024-07-25 14:00:00', '2024-07-25 17:00:00', 'National Stadium', 'Shuttle', 30),
+('Olympic Village', '2024-07-25 14:00:00', '2024-07-25 17:00:00', 'National Stadium', 'Van', 20);
 
 INSERT INTO Room (Number, AccommodationName, maxOccupancy)
 VALUES
@@ -530,16 +595,18 @@ VALUES
 
 INSERT INTO `Men'sDivision` (ID)
 VALUES
+(101),
 (102);
 
--- INSERT INTO `Women'sDivision` (ID, AthleteName)
--- VALUES
--- (2, 'Anna L. Smith'),
--- (4, 'Maria T. Garcia');
+INSERT INTO `Women'sDivision`
+VALUES
+(103);
 
 INSERT INTO TeamSport (ID)
 VALUES
-(102);
+(101),
+(102),
+(103);
 
 INSERT INTO IndividualSport (ID)
 VALUES
@@ -585,3 +652,27 @@ SELECT FirstName, LastName, TIMESTAMPDIFF(YEAR, Birthday, CURDATE()) AS Age
 		(SELECT Sport.ID FROM Sport, `Men'sDivision`, TeamSport
 		WHERE Sport.ID = `Men'sDivision`.ID AND `Men'sDivision`.ID = TeamSport.ID
 		AND Sport.Name = "Swimming");
+        
+SELECT TeamSponsorName
+	FROM TeamSponsorship 
+	WHERE TeamCountryName = "France"
+	AND TeamSportID =
+		(SELECT Sport.ID FROM Sport, `Men'sDivision`, TeamSport
+		WHERE Sport.ID = `Men'sDivision`.ID AND `Men'sDivision`.ID = TeamSport.ID
+		AND Sport.name = "Soccer");
+        
+SELECT SUM(ContractAmount)
+	FROM TeamSponsorship
+	WHERE TeamCountryName = "USA"
+	AND TeamSportID =
+		(SELECT Sport.ID FROM Sport, `Women'sDivision`, TeamSport
+		WHERE Sport.ID = `Women'sDivision`.ID AND `Women'sDivision`.ID = TeamSport.ID
+		AND Sport.name = "Basketball");
+        
+SELECT Type, MaxCapacity
+FROM Transportation
+	WHERE AccommodationName = 'Olympic Village'
+	AND EventBeginTimeStamp = '2024-07-25 14:00:00'
+	AND EventEndTimeStamp = '2024-07-25 17:00:00'
+	AND VenueName = 'National Stadium';
+
