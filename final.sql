@@ -614,10 +614,8 @@ VALUES
 
 INSERT INTO SportTypes (sportID, sportType)
 VALUES
-(101, 'Team'),
-(102, 'Individual'),
-(103, 'Team'),
-(104, 'Individual');
+(101, '20m'),
+(101, '30m');
 
 INSERT INTO Transportation (AccommodationName, EventBeginTimeStamp, EventEndTimeStamp, venueName, Type, maxCapacity)
 VALUES
@@ -649,8 +647,11 @@ VALUES
 
 INSERT INTO Officiates (OfficialID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName)
 VALUES
-(1, '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium'),
-(2, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center');
+(1, '2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium'),
+(3, '2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium'),
+(5, '2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium'),
+(7, '2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium'),
+(9, '2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium');
 
 INSERT INTO Competes (CountryName, SportID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName)
 VALUES
@@ -665,7 +666,8 @@ VALUES
 
 INSERT INTO `Women'sDivision`
 VALUES
-(103);
+(103),
+(104);
 
 INSERT INTO TeamSport (ID)
 VALUES
@@ -706,10 +708,13 @@ INSERT INTO EventSponsorship (EventSponsorName, EventBeginTimeStamp, EventEndTim
 VALUES
 ('Coca-Cola', '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 'Beverage', '2024-01-01', 200000.00),
 ('Nike', '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 'Apparel', '2024-02-01', 300000.00),
-('Adidas', '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 'Footwear', '2024-03-01', 250000.00);
+('Coca-Cola', '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 'Exclusive', '2024-06-01', 50000),
+('Nike', '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 'Gold', '2024-06-01', 75000),
+('Adidas', '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 'Silver', '2024-06-01', 40000);
 
 -- QUERIES
 
+-- 1.
 SELECT FirstName, LastName, TIMESTAMPDIFF(YEAR, Birthday, CURDATE()) AS Age
 	FROM Athlete
 	WHERE CountryName = "Canada"
@@ -718,6 +723,22 @@ SELECT FirstName, LastName, TIMESTAMPDIFF(YEAR, Birthday, CURDATE()) AS Age
 		WHERE Sport.ID = `Men'sDivision`.ID AND `Men'sDivision`.ID = TeamSport.ID
 		AND Sport.Name = "Swimming");
         
+-- 2.
+SELECT Sponsor.Name, Sponsor.Industry
+	FROM EventSponsorship, EventSponsor, Sponsor
+	WHERE EventSponsorship.EventSponsorName = EventSponsor.SponsorName
+	AND EventSponsor.SponsorName = Sponsor.Name
+	AND (EventSponsorship.EventBeginTimeStamp, EventSponsorship.EventEndTimeStamp, EventSponsorship.EventVenueName) IN 
+		(SELECT BeginTimeStamp, EndTimeStamp, VenueName
+        FROM Event
+        WHERE SportID =
+			(SELECT Sport.ID 
+            FROM Sport, `Women'sDivision`, IndividualSport
+			WHERE Sport.ID = `Women'sDivision`.ID 
+            AND `Women'sDivision`.ID = IndividualSport.ID
+			AND Sport.Name = "Gymnastics"));
+
+-- 3.             
 SELECT TeamSponsorName
 	FROM TeamSponsorship 
 	WHERE TeamCountryName = "France"
@@ -726,6 +747,7 @@ SELECT TeamSponsorName
 		WHERE Sport.ID = `Men'sDivision`.ID AND `Men'sDivision`.ID = TeamSport.ID
 		AND Sport.name = "Soccer");
         
+-- 4.
 SELECT SUM(ContractAmount)
 	FROM TeamSponsorship
 	WHERE TeamCountryName = "USA"
@@ -733,14 +755,16 @@ SELECT SUM(ContractAmount)
 		(SELECT Sport.ID FROM Sport, `Women'sDivision`, TeamSport
 		WHERE Sport.ID = `Women'sDivision`.ID AND `Women'sDivision`.ID = TeamSport.ID
 		AND Sport.name = "Basketball");
-        
+     
+-- 5.
 SELECT Type, MaxCapacity
 FROM Transportation
 	WHERE AccommodationName = 'Olympic Village'
 	AND EventBeginTimeStamp = '2024-07-25 14:00:00'
 	AND EventEndTimeStamp = '2024-07-25 17:00:00'
 	AND VenueName = 'National Stadium';
-    
+  
+-- 6.
 SELECT SUM(AthleteCount.Count + OfficialCount.Count) AS TotalCount
 FROM 
     (SELECT COUNT(*) AS Count
@@ -751,24 +775,48 @@ JOIN
      FROM Official
      WHERE AccommodationName = "Olympic Village") AS OfficialCount;
      
+-- 7.
 SELECT Sport.Name, Event.BeginTimeStamp, Event.EndTimeStamp
 	FROM Event, Sport
 	WHERE Event.SportID = Sport.ID
 	AND BeginTimeStamp >= '2024-07-21 00:00:00'
 	AND EndTimeStamp <= '2024-07-23 23:59:59';
-    
+
+-- 8. 
 SELECT Name, (NumGolds + NumSilver + NumBronze) AS TotalMedals
 	FROM Country
 	WHERE Name = "Canada";
-    
+
+-- 9.
 SELECT *
 	FROM Country
 	ORDER BY NumGolds DESC, NumSilver DESC, NumBronze DESC;
 
+-- 10.
 SELECT SEC_TO_TIME(TIMESTAMPDIFF(SECOND, BeginTimeStamp, EndTimeStamp)) AS Duration, Sport.Name
 	FROM Event, Sport
     WHERE Event.SportID = Sport.ID
 	AND VenueName = 'National Stadium';
+   
+-- 11.
+SELECT SalariedStaffID, SUM(HourlyWageEuros * HoursWorked) AS TotalPay
+	FROM SalariedStaffs
+	WHERE (EventBeginTimeStamp, EventEndTimeStamp, EventVenueName) IN
+		(SELECT BeginTimeStamp, EndTimeStamp, VenueName
+		 FROM Event 
+		 WHERE SportID = 
+			(SELECT SportID FROM Sport WHERE Name = "Soccer"))
+	GROUP BY SalariedStaffID;
+ 
+-- 12.
+SELECT Name
+	FROM Official, Officiates
+	WHERE Official.ID = Officiates.OfficialID
+	AND Officiates.EventVenueName = 'National Stadium'
+	AND Officiates.EventBeginTimeStamp >= '2024-07-01 00:00:00'
+	AND Officiates.EventEndTimeStamp <= '2024-07-01 23:59:59';
+    
+
 
 
 
