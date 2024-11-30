@@ -414,7 +414,18 @@ VALUES
 (21, 'Henri', 'Leclerc', 76.9, 'Male', '1991-08-13', 'France', 101, 'Athletes Inn', 203),
 (22, 'Julien', 'Petit', 70.4, 'Male', '1996-09-07', 'France', 101, 'Olympic Village', 305),
 (23, 'Victor', 'Girard', 77.6, 'Male', '1988-06-01', 'France', 101, 'Athletes Inn', 204),
-(24, 'Arnaud', 'Blanc', 80.2, 'Male', '1994-12-20', 'France', 101, 'Olympic Village', 306);
+(24, 'Arnaud', 'Blanc', 80.2, 'Male', '1994-12-20', 'France', 101, 'Olympic Village', 306),
+(25, 'Michel', 'Lemoine', 80.5, 'Male', '1992-01-25', 'France', 101, 'Olympic Village', 307),
+(26, 'Julien', 'Brunet', 76.2, 'Male', '1990-03-14', 'France', 101, 'Olympic Village', 308),
+(27, 'Geoffrey', 'Martin', 85.1, 'Male', '1993-11-10', 'France', 101, 'Athletes Inn', 205),
+(28, 'Damien', 'Meyer', 79.7, 'Male', '1991-06-20', 'France', 101, 'Olympic Village', 309),
+(29, 'Nicolas', 'Besson', 82.3, 'Male', '1994-05-22', 'France', 101, 'Athletes Inn', 206),
+(30, 'Pierre', 'Lemoine', 77.4, 'Male', '1995-01-17', 'France', 101, 'Olympic Village', 310),
+(31, 'Thibault', 'Martin', 88.6, 'Male', '1992-07-05', 'France', 101, 'Olympic Village', 311),
+(32, 'François', 'Pires', 84.2, 'Male', '1993-04-03', 'France', 101, 'Athletes Inn', 207),
+(33, 'Louis', 'Girard', 81.8, 'Male', '1991-09-15', 'France', 101, 'Olympic Village', 312),
+(34, 'Olivier', 'Dupuis', 78.3, 'Male', '1994-12-10', 'France', 101, 'Athletes Inn', 208);
+
 
 INSERT INTO Country (Name, NumGolds, NumSilver, NumBronze)
 VALUES
@@ -643,7 +654,18 @@ INSERT INTO EventRound (EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, 
 VALUES
 ('2024-07-21 10:00:00', '2024-07-21 11:00:00', 'National Stadium', 'Quarterfinal'),
 ('2024-07-21 11:30:00', '2024-07-21 12:00:00', 'National Stadium', 'Semifinal'),
-('2024-07-22 14:00:00', '2024-07-22 15:00:00', 'Aquatics Center', 'Final');
+('2024-07-22 14:00:00', '2024-07-22 15:00:00', 'Aquatics Center', 'Final'),
+('2024-07-24 09:00:00', '2024-07-24 10:00:00', 'National Stadium', 'Quarterfinal'),
+('2024-07-24 10:30:00', '2024-07-24 11:00:00', 'National Stadium', 'Semifinal'),
+('2024-07-25 15:00:00', '2024-07-25 16:00:00', 'Aquatics Center', 'Final'),
+('2024-07-26 13:00:00', '2024-07-26 14:00:00', 'Gymnastics Arena', 'Quarterfinal'),
+('2024-07-26 14:30:00', '2024-07-26 15:00:00', 'Gymnastics Arena', 'Semifinal'),
+('2024-07-27 16:00:00', '2024-07-27 17:00:00', 'National Stadium', 'Quarterfinal'),
+('2024-07-27 17:30:00', '2024-07-27 18:00:00', 'National Stadium', 'Semifinal'),
+('2024-07-28 11:00:00', '2024-07-28 12:00:00', 'Gymnastics Arena', 'Final'),
+('2024-07-29 14:00:00', '2024-07-29 15:00:00', 'Aquatics Center', 'Quarterfinal'),
+('2024-07-29 15:30:00', '2024-07-29 16:00:00', 'Aquatics Center', 'Semifinal'),
+('2024-07-30 10:00:00', '2024-07-30 11:00:00', 'National Stadium', 'Final');
 
 INSERT INTO Officiates (OfficialID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName)
 VALUES
@@ -696,7 +718,9 @@ VALUES
 ('USA', 101),
 ('Canada', 102),
 ('China', 103),
-('Mexico', 104);
+('Mexico', 104),
+('France', 101);
+
 
 INSERT INTO EventSponsor (SponsorName)
 VALUES
