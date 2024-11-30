@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS Competes (
 
 CREATE TABLE IF NOT EXISTS Sport (
     ID int NOT NULL,
-    SportName VARCHAR(50),
+    Name VARCHAR(50),
 
     PRIMARY KEY (ID)
 );
@@ -390,12 +390,22 @@ ADD CONSTRAINT FK_TransportationEventBeginTimeStamp FOREIGN KEY (EventBeginTimeS
 
 -- INSERTS
 
-INSERT INTO Athlete (ID, FirstName, LastName, WeightKg, Sex, Birthday, CountryName, SportID, AccommodationName, RoomNumber, TeamName)
+INSERT INTO Athlete (ID, FirstName, LastName, WeightKg, Sex, Birthday, CountryName, SportID, AccommodationName, RoomNumber)
 VALUES
-(1, 'John', 'Doe', 75.5, 'Male', '1990-05-12', 'USA', 101, 'Olympic Village', 202, 'Canada'),
-(2, 'Anna', 'Smith', 63.7, 'Female', '1992-09-22', 'Canada', 102, 'Athletes Inn', 105, 'USA'),
-(3, 'Liu', 'Wang', 68.0, 'Male', '1988-07-01', 'China', 103, 'Olympic Village', 302, 'China'),
-(4, 'Maria', 'Garcia', 56.3, 'Female', '1994-11-15', 'Mexico', 104, 'Athletes Inn', 110, 'Mexico');
+(1, 'John', 'Doe', 75.5, 'Male', '1990-05-12', 'USA', 101, 'Olympic Village', 202),
+(2, 'Anna', 'Smith', 63.7, 'Female', '1992-09-22', 'Canada', 103, 'Athletes Inn', 105),
+(3, 'Liu', 'Wang', 68.0, 'Male', '1988-07-01', 'China', 103, 'Olympic Village', 302),
+(4, 'Maria', 'Garcia', 56.3, 'Female', '1994-11-15', 'Mexico', 104, 'Athletes Inn', 110),
+(5, 'James', 'Taylor', 81.2, 'Male', '1991-03-15', 'Canada', 102, 'Olympic Village', 210),
+(6, 'Daniel', 'Brown', 74.5, 'Male', '1993-07-18', 'Canada', 102, 'Olympic Village', 211),
+(7, 'Ryan', 'Wilson', 89.6, 'Male', '1992-12-05', 'Canada', 102, 'Olympic Village', 212),
+(8, 'Matthew', 'Moore', 70.3, 'Male', '1995-09-10', 'Canada', 102, 'Athletes Inn', 213),
+(9, 'Andrew', 'Clark', 77.8, 'Male', '1990-04-21', 'Canada', 102, 'Athletes Inn', 214),
+(10, 'Joshua', 'Young', 85.4, 'Male', '1987-06-30', 'Canada', 102, 'Olympic Village', 215),
+(11, 'David', 'Hall', 79.9, 'Male', '1989-08-19', 'Canada', 102, 'Olympic Village', 216),
+(12, 'Ethan', 'Walker', 67.5, 'Male', '1994-03-02', 'Canada', 102, 'Olympic Village', 217),
+(13, 'Logan', 'King', 90.1, 'Male', '1996-02-14', 'Canada', 102, 'Athletes Inn', 218),
+(14, 'Luke', 'Hughes', 72.7, 'Male', '1991-11-25', 'Canada', 102, 'Olympic Village', 219);
 
 INSERT INTO Country (Name, NumGolds, NumSilver, NumBronze)
 VALUES
@@ -404,7 +414,6 @@ VALUES
 ('China', 28, 25, 30),
 ('Mexico', 5, 10, 15);
 
-
 INSERT INTO Staff (ID, Name, LastName, ContactNo)
 VALUES
 (1, 'Michael', 'Jordan', '123-456-7890'),
@@ -412,18 +421,15 @@ VALUES
 (3, 'Bruce', 'Wayne', '555-123-4567'),
 (4, 'Clark', 'Kent', '555-765-4321');
 
-
 INSERT INTO Salaried (StaffID)
 VALUES
 (1),
 (2);
 
-
 INSERT INTO Volunteer (StaffID)
 VALUES
 (3),
 (4);
-
 
 INSERT INTO Sponsor (Name, Industry, ContactNo)
 VALUES
@@ -431,43 +437,36 @@ VALUES
 ('Adidas', 'Sportswear', 987654321),
 ('Coca-Cola', 'Beverages', 456789123);
 
-
 INSERT INTO Event (BeginTimeStamp, EndTimeStamp, VenueName, SportID)
 VALUES
 ('2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 101),
 ('2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 102),
 ('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104);
 
-
 INSERT INTO SalariedStaffs (SalariedStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HourlyWageEuros, HoursWorked, Role)
 VALUES
 (1, '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 20, 4, 'Manager'),
 (2, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 25, 5, 'Coach');
-
 
 INSERT INTO VolunteerStaffs (VolunteerStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HoursWorked, Role)
 VALUES
 (3, '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 4, 'Assistant'),
 (4, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'National Stadium', 4, 'Coordinator');
 
-
 INSERT INTO Official (ID, Name, Role, AccommodationName, RoomNumber)
 VALUES
 (1, 'Charles Xavier', 'Referee', 'Olympic Village', 101),
 (2, 'Diana Prince', 'Judge', 'Athletes Inn', 202);
-
 
 INSERT INTO TeamSponsor (SponsorName)
 VALUES
 ('Nike'),
 ('Adidas');
 
-
 INSERT INTO TeamSponsorship (TeamSponsorName, TeamCountryName, TeamSportID, SponsorshipType, ContractDate, ContractAmount)
 VALUES
 ('Nike', 'USA', 101, 'Gold', '2024-01-15', 500000.00),
 ('Adidas', 'Canada', 102, 'Silver', '2024-02-10', 300000.00);
-
 
 INSERT INTO Venue (name, address, maxCapacity)
 VALUES
@@ -475,13 +474,11 @@ VALUES
 ('Aquatics Center', '456 Water Way', 15000),
 ('Gymnastics Arena', '789 Balance Rd', 10000);
 
-
 INSERT INTO Results (countryName, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, result)
 VALUES
 ('USA', '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 'Gold'),
 ('Canada', '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 'Silver'),
 ('Mexico', '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 'Bronze');
-
 
 INSERT INTO Accommodation (name, address, maxOccupancy)
 VALUES
@@ -489,8 +486,7 @@ VALUES
 ('Athletes Inn', '2 Athlete Rd', 200);
 
 
-
-INSERT INTO Sport (id, sportName)
+INSERT INTO Sport (ID, Name)
 VALUES
 (101, 'Soccer'),
 (102, 'Swimming'),
@@ -504,12 +500,10 @@ VALUES
 (103, 'Team'),
 (104, 'Individual');
 
-
 INSERT INTO Transportation (AccommodationName, EventBeginTimeStamp, EventEndTimeStamp, venueName, venueType, maxCapacity)
 VALUES
 ('Olympic Village', '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 'Outdoor', 300),
 ('Athletes Inn', '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 'Indoor', 100);
-
 
 INSERT INTO Room (Number, AccommodationName, maxOccupancy)
 VALUES
@@ -517,19 +511,16 @@ VALUES
 (105, 'Athletes Inn', 2),
 (302, 'Olympic Village', 3);
 
-
 INSERT INTO EventRound (EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, Round)
 VALUES
 ('2024-07-21 10:00:00', '2024-07-21 11:00:00', 'National Stadium', 'Quarterfinal'),
 ('2024-07-21 11:30:00', '2024-07-21 12:00:00', 'National Stadium', 'Semifinal'),
 ('2024-07-22 14:00:00', '2024-07-22 15:00:00', 'Aquatics Center', 'Final');
 
-
 INSERT INTO Officiates (OfficialID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName)
 VALUES
 (1, '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium'),
 (2, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center');
-
 
 INSERT INTO Competes (CountryName, SportID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName)
 VALUES
@@ -537,30 +528,23 @@ VALUES
 ('Canada', 102, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center'),
 ('Mexico', 104, '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena');
 
-
-INSERT INTO MaleDivision (ID, AthleteName)
+INSERT INTO `Men'sDivision` (ID)
 VALUES
-(1, 'John M. Doe'),
-(3, 'Liu Wang');
+(102);
 
+-- INSERT INTO `Women'sDivision` (ID, AthleteName)
+-- VALUES
+-- (2, 'Anna L. Smith'),
+-- (4, 'Maria T. Garcia');
 
-INSERT INTO FemaleDivision (ID, AthleteName)
+INSERT INTO TeamSport (ID)
 VALUES
-(2, 'Anna L. Smith'),
-(4, 'Maria T. Garcia');
+(102);
 
-
-INSERT INTO TeamSport (ID, teamName, minAthletes, maxAthletes)
+INSERT INTO IndividualSport (ID)
 VALUES
-(101, 'USA Soccer Team', 11, 23),
-(103, 'China Basketball Team', 5, 12);
-
-
-INSERT INTO IndividualSport (ID, sportName)
-VALUES
-(102, 'Swimming'),
-(104, 'Gymnastics');
-
+(102),
+(104);
 
 INSERT INTO venueType (venueName, Type)
 VALUES
@@ -568,12 +552,10 @@ VALUES
 ('Aquatics Center', 'Indoor'),
 ('Gymnastics Arena', 'Indoor');
 
-
 INSERT INTO AccommodationTypes (AccommodationName, AccommodationTypes)
 VALUES
 ('Olympic Village', 'Luxury'),
 ('Athletes Inn', 'Standard');
-
 
 INSERT INTO Team (CountryName, SportID)
 VALUES
@@ -588,9 +570,18 @@ VALUES
 ('Nike'),
 ('Adidas');
 
-
 INSERT INTO EventSponsorship (EventSponsorName, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, SponsorshipType, ContractDate, ContractAmount)
 VALUES
 ('Coca-Cola', '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 'Beverage', '2024-01-01', 200000.00),
 ('Nike', '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 'Apparel', '2024-02-01', 300000.00),
 ('Adidas', '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 'Footwear', '2024-03-01', 250000.00);
+
+-- QUERIES
+
+SELECT FirstName, LastName, TIMESTAMPDIFF(YEAR, Birthday, CURDATE()) AS Age
+	FROM Athlete
+	WHERE CountryName = "Canada"
+	AND SportID = 
+		(SELECT Sport.ID FROM Sport, `Men'sDivision`, TeamSport
+		WHERE Sport.ID = `Men'sDivision`.ID AND `Men'sDivision`.ID = TeamSport.ID
+		AND Sport.Name = "Swimming");
