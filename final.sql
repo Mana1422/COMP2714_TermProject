@@ -419,44 +419,102 @@ VALUES
 (1, 'Michael', 'Jordan', '123-456-7890'),
 (2, 'Sarah', 'Connor', '987-654-3210'),
 (3, 'Bruce', 'Wayne', '555-123-4567'),
-(4, 'Clark', 'Kent', '555-765-4321');
+(4, 'Clark', 'Kent', '555-765-4321'),
+(5, 'David', 'Miller', '123-456-7890'),
+(6, 'Sophia', 'Wilson', '234-567-8901'),
+(7, 'Ethan', 'Moore', '345-678-9012'),
+(8, 'Olivia', 'Taylor', '456-789-0123'),
+(9, 'Lucas', 'Anderson', '567-890-1234'),
+(10, 'Amelia', 'Thomas', '678-901-2345'),
+(11, 'Mason', 'Jackson', '789-012-3456'),
+(12, 'Isabella', 'White', '890-123-4567'),
+(13, 'Sebastian', 'Harris', '901-234-5678');
+
 
 INSERT INTO Salaried (StaffID)
 VALUES
 (1),
-(2);
+(2),
+(7),
+(8),
+(9),
+(10),
+(11),
+(12);
 
 INSERT INTO Volunteer (StaffID)
 VALUES
 (3),
-(4);
+(4),
+(5),
+(6),
+(13);
 
 INSERT INTO Sponsor (Name, Industry, ContactNo)
 VALUES
 ('Nike', 'Sportswear', 123456789),
 ('Adidas', 'Sportswear', 987654321),
-('Coca-Cola', 'Beverages', 456789123);
+('Coca-Cola', 'Beverages', 456789123),
+('PepsiCo', 'Beverages', 321654987),
+('Samsung', 'Electronics', 654321789),
+('Toyota', 'Automobile', 123987654),
+('Apple', 'Technology', 987321654),
+('Sony', 'Electronics', 456123789),
+('Nestle', 'Food & Beverage', 789456123),
+('Microsoft', 'Technology', 123654987);
 
 INSERT INTO Event (BeginTimeStamp, EndTimeStamp, VenueName, SportID)
 VALUES
 ('2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 101),
 ('2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 102),
-('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104);
+('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104),
+('2024-07-24 09:00:00', '2024-07-24 11:00:00', 'National Stadium', 101),
+('2024-07-25 15:00:00', '2024-07-25 17:00:00', 'Aquatics Center', 102),
+('2024-07-26 13:00:00', '2024-07-26 15:00:00', 'Gymnastics Arena', 104),
+('2024-07-27 16:00:00', '2024-07-27 18:00:00', 'National Stadium', 103),
+('2024-07-28 11:00:00', '2024-07-28 13:00:00', 'Gymnastics Arena', 104),
+('2024-07-29 14:00:00', '2024-07-29 16:00:00', 'Aquatics Center', 102),
+('2024-07-30 10:00:00', '2024-07-30 12:00:00', 'National Stadium', 101);
 
 INSERT INTO SalariedStaffs (SalariedStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HourlyWageEuros, HoursWorked, Role)
 VALUES
-(1, '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 20, 4, 'Manager'),
-(2, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 25, 5, 'Coach');
+(1, '2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 32, 4, 'Manager'),
+(2, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 30, 5, 'Coach'),
+(1, '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 32, 4, 'Manager'),
+(2, '2024-07-24 09:00:00', '2024-07-24 11:00:00', 'National Stadium', 30, 5, 'Coach'),
+(5, '2024-07-25 15:00:00', '2024-07-25 17:00:00', 'Aquatics Center', 28, 6, 'Referee'),
+(7, '2024-07-26 13:00:00', '2024-07-26 15:00:00', 'Gymnastics Arena', 32, 5, 'Manager'),
+(8, '2024-07-27 16:00:00', '2024-07-27 18:00:00', 'National Stadium', 30, 5, 'Coach'),
+(7, '2024-07-28 11:00:00', '2024-07-28 13:00:00', 'Gymnastics Arena', 25, 4, 'Manager'),
+(9, '2024-07-29 14:00:00', '2024-07-29 16:00:00', 'Aquatics Center', 28, 5, 'Referee'),
+(10, '2024-07-30 10:00:00', '2024-07-30 12:00:00', 'National Stadium', 32, 4, 'Manager'),
+(8, '2024-07-30 10:00:00', '2024-07-30 12:00:00', 'National Stadium', 30, 4, 'Coach');
 
 INSERT INTO VolunteerStaffs (VolunteerStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HoursWorked, Role)
 VALUES
 (3, '2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 4, 'Assistant'),
-(4, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'National Stadium', 4, 'Coordinator');
+(4, '2024-07-22 14:00:00', '2024-07-22 16:00:00', 'National Stadium', 4, 'Coordinator'),
+(5, '2024-07-24 09:00:00', '2024-07-24 11:00:00', 'National Stadium', 4, 'Assistant'),
+(4, '2024-07-25 15:00:00', '2024-07-25 17:00:00', 'Aquatics Center', 4, 'Coordinator'),
+(3, '2024-07-26 13:00:00', '2024-07-26 15:00:00', 'Gymnastics Arena', 4, 'Assistant'),
+(13, '2024-07-27 16:00:00', '2024-07-27 18:00:00', 'National Stadium', 4, 'Coordinator'),
+(5, '2024-07-28 11:00:00', '2024-07-28 13:00:00', 'Gymnastics Arena', 4, 'Assistant'),
+(6, '2024-07-29 14:00:00', '2024-07-29 16:00:00', 'Aquatics Center', 4, 'Coordinator'),
+(5, '2024-07-30 10:00:00', '2024-07-30 12:00:00', 'National Stadium', 4, 'Assistant');
 
 INSERT INTO Official (ID, Name, Role, AccommodationName, RoomNumber)
 VALUES
 (1, 'Charles Xavier', 'Referee', 'Olympic Village', 101),
-(2, 'Diana Prince', 'Judge', 'Athletes Inn', 202);
+(2, 'Diana Prince', 'Judge', 'Athletes Inn', 202),
+(3, 'Bruce Wayne', 'Referee', 'Olympic Village', 204),
+(4, 'Clark Kent', 'Judge', 'Athletes Inn', 105),
+(5, 'Peter Parker', 'Referee', 'Olympic Village', 303),
+(6, 'Tony Stark', 'Judge', 'Olympic Village', 401),
+(7, 'Natasha Romanoff', 'Referee', 'Athletes Inn', 107),
+(8, 'Steve Rogers', 'Judge', 'Olympic Village', 502),
+(9, 'Thor Odinson', 'Referee', 'Athletes Inn', 206),
+(10, 'Wanda Maximoff', 'Judge', 'Olympic Village', 305);
+
 
 INSERT INTO TeamSponsor (SponsorName)
 VALUES
@@ -509,7 +567,15 @@ INSERT INTO Room (Number, AccommodationName, maxOccupancy)
 VALUES
 (202, 'Olympic Village', 4),
 (105, 'Athletes Inn', 2),
-(302, 'Olympic Village', 3);
+(302, 'Olympic Village', 3),
+(303, 'Athletes Inn', 2),
+(204, 'Olympic Village', 4),
+(107, 'Athletes Inn', 1),
+(305, 'Olympic Village', 3),
+(108, 'Athletes Inn', 2),
+(401, 'Olympic Village', 4),
+(206, 'Athletes Inn', 2),
+(502, 'Olympic Village', 4);
 
 INSERT INTO EventRound (EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, Round)
 VALUES
