@@ -421,7 +421,13 @@ VALUES
 ('USA', 25, 30, 20),
 ('Canada', 15, 20, 25),
 ('China', 28, 25, 30),
-('Mexico', 5, 10, 15);
+('Mexico', 5, 10, 15),
+('Germany', 18, 22, 24),
+('Japan', 12, 18, 20),
+('Russia', 22, 27, 19),
+('Australia', 10, 12, 16),
+('France', 17, 15, 19),
+('Brazil', 8, 12, 10);
 
 INSERT INTO Staff (ID, Name, LastName, ContactNo)
 VALUES
@@ -468,7 +474,15 @@ VALUES
 ('2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 101),
 ('2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 102),
 ('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104),
-('2024-07-25 14:00:00', '2024-07-25 17:00:00', 'National Stadium', 101);
+('2024-07-25 14:00:00', '2024-07-25 17:30:00', 'National Stadium', 101),
+('2024-07-01 09:00:00', '2024-07-01 10:30:00', 'National Stadium', 101),
+('2024-07-01 12:00:00', '2024-07-01 14:30:00', 'National Stadium', 102),
+('2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium', 103),
+('2024-07-02 09:00:00', '2024-07-02 11:30:00', 'National Stadium', 104),
+('2024-07-02 12:00:00', '2024-07-02 13:45:00', 'National Stadium', 101),
+('2024-07-02 15:00:00', '2024-07-02 17:00:00', 'National Stadium', 102),
+('2024-07-03 09:00:00', '2024-07-03 11:15:00', 'National Stadium', 103),
+('2024-07-03 12:00:00', '2024-07-03 14:30:00', 'National Stadium', 104);
 
 INSERT INTO SalariedStaffs (SalariedStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HourlyWageEuros, HoursWorked, Role)
 VALUES
@@ -483,7 +497,15 @@ VALUES
 INSERT INTO Official (ID, Name, Role, AccommodationName, RoomNumber)
 VALUES
 (1, 'Charles Xavier', 'Referee', 'Olympic Village', 101),
-(2, 'Diana Prince', 'Judge', 'Athletes Inn', 202);
+(2, 'Diana Prince', 'Judge', 'Athletes Inn', 202),
+(3, 'John Doe', 'Referee', 'Olympic Village', '201'),
+(4, 'Jane Smith', 'Judge', 'Olympic Village', '202'),
+(5, 'Michael Johnson', 'Referee', 'Olympic Village', '203'),
+(6, 'Sarah Lee', 'Judge', 'Olympic Village', '204'),
+(7, 'Chris White', 'Referee', 'Athletes Inn', '205'),
+(8, 'Emily Brown', 'Judge', 'Olympic Village', '206'),
+(9, 'David Green', 'Referee', 'Olympic Village', '207'),
+(10, 'Laura Taylor', 'Judge', 'Olympic Village', '208');
 
 INSERT INTO TeamSponsor (SponsorName)
 VALUES
@@ -675,4 +697,37 @@ FROM Transportation
 	AND EventBeginTimeStamp = '2024-07-25 14:00:00'
 	AND EventEndTimeStamp = '2024-07-25 17:00:00'
 	AND VenueName = 'National Stadium';
+    
+SELECT SUM(AthleteCount.Count + OfficialCount.Count) AS TotalCount
+FROM 
+    (SELECT COUNT(*) AS Count
+     FROM Athlete
+     WHERE AccommodationName = "Olympic Village") AS AthleteCount
+JOIN 
+    (SELECT COUNT(*) AS Count
+     FROM Official
+     WHERE AccommodationName = "Olympic Village") AS OfficialCount;
+     
+SELECT Sport.Name, Event.BeginTimeStamp, Event.EndTimeStamp
+	FROM Event, Sport
+	WHERE Event.SportID = Sport.ID
+	AND BeginTimeStamp >= '2024-07-21 00:00:00'
+	AND EndTimeStamp <= '2024-07-23 23:59:59';
+    
+SELECT Name, (NumGolds + NumSilver + NumBronze) AS TotalMedals
+	FROM Country
+	WHERE Name = "Canada";
+    
+SELECT *
+	FROM Country
+	ORDER BY NumGolds DESC, NumSilver DESC, NumBronze DESC;
+
+SELECT SEC_TO_TIME(TIMESTAMPDIFF(SECOND, BeginTimeStamp, EndTimeStamp)) AS Duration, Sport.Name
+	FROM Event, Sport
+    WHERE Event.SportID = Sport.ID
+	AND VenueName = 'National Stadium';
+
+
+
+
 
