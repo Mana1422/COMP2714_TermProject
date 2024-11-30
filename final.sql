@@ -840,6 +840,24 @@ SELECT Name
 	AND Officiates.EventBeginTimeStamp >= '2024-07-01 00:00:00'
 	AND Officiates.EventEndTimeStamp <= '2024-07-01 23:59:59';
     
+-- 13.
+SELECT 
+    t.CountryName, 
+    t.SportID, 
+    s.Name AS SportName, 
+    COUNT(a.ID) AS teamSize
+FROM 
+    Athlete a
+JOIN 
+    Team t ON a.CountryName = t.CountryName AND a.SportID = t.SportID
+JOIN 
+    Sport s ON a.SportID = s.ID
+WHERE 
+    t.SportID = 101
+GROUP BY 
+    t.CountryName, t.SportID, s.Name
+HAVING 
+    teamSize < 12 OR teamSize > 15;
 
 
 
