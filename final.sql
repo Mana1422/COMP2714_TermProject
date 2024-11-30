@@ -432,7 +432,13 @@ VALUES
 ('USA', 25, 30, 20),
 ('Canada', 15, 20, 25),
 ('China', 28, 25, 30),
-('Mexico', 5, 10, 15);
+('Mexico', 5, 10, 15),
+('Germany', 18, 22, 24),
+('Japan', 12, 18, 20),
+('Russia', 22, 27, 19),
+('Australia', 10, 12, 16),
+('France', 17, 15, 19),
+('Brazil', 8, 12, 10);
 
 INSERT INTO Staff (ID, Name, LastName, ContactNo)
 VALUES
@@ -498,12 +504,15 @@ VALUES
 ('2024-07-21 10:00:00', '2024-07-21 12:00:00', 'National Stadium', 101),
 ('2024-07-22 14:00:00', '2024-07-22 16:00:00', 'Aquatics Center', 102),
 ('2024-07-23 18:00:00', '2024-07-23 20:00:00', 'Gymnastics Arena', 104),
-('2024-07-25 14:00:00', '2024-07-25 17:00:00', 'National Stadium', 101),
-('2024-07-26 13:00:00', '2024-07-26 15:00:00', 'Gymnastics Arena', 104),
-('2024-07-27 16:00:00', '2024-07-27 18:00:00', 'National Stadium', 103),
-('2024-07-28 11:00:00', '2024-07-28 13:00:00', 'Gymnastics Arena', 104),
-('2024-07-29 14:00:00', '2024-07-29 16:00:00', 'Aquatics Center', 102),
-('2024-07-30 10:00:00', '2024-07-30 12:00:00', 'National Stadium', 101);
+('2024-07-25 14:00:00', '2024-07-25 17:30:00', 'National Stadium', 101),
+('2024-07-01 09:00:00', '2024-07-01 10:30:00', 'National Stadium', 101),
+('2024-07-01 12:00:00', '2024-07-01 14:30:00', 'National Stadium', 102),
+('2024-07-01 15:00:00', '2024-07-01 16:45:00', 'National Stadium', 103),
+('2024-07-02 09:00:00', '2024-07-02 11:30:00', 'National Stadium', 104),
+('2024-07-02 12:00:00', '2024-07-02 13:45:00', 'National Stadium', 101),
+('2024-07-02 15:00:00', '2024-07-02 17:00:00', 'National Stadium', 102),
+('2024-07-03 09:00:00', '2024-07-03 11:15:00', 'National Stadium', 103),
+('2024-07-03 12:00:00', '2024-07-03 14:30:00', 'National Stadium', 104);
 
 INSERT INTO SalariedStaffs (SalariedStaffID, EventBeginTimeStamp, EventEndTimeStamp, EventVenueName, HourlyWageEuros, HoursWorked, Role)
 VALUES
@@ -535,15 +544,14 @@ INSERT INTO Official (ID, Name, Role, AccommodationName, RoomNumber)
 VALUES
 (1, 'Charles Xavier', 'Referee', 'Olympic Village', 101),
 (2, 'Diana Prince', 'Judge', 'Athletes Inn', 202),
-(3, 'Bruce Wayne', 'Referee', 'Olympic Village', 204),
-(4, 'Clark Kent', 'Judge', 'Athletes Inn', 105),
-(5, 'Peter Parker', 'Referee', 'Olympic Village', 303),
-(6, 'Tony Stark', 'Judge', 'Olympic Village', 401),
-(7, 'Natasha Romanoff', 'Referee', 'Athletes Inn', 107),
-(8, 'Steve Rogers', 'Judge', 'Olympic Village', 502),
-(9, 'Thor Odinson', 'Referee', 'Athletes Inn', 206),
-(10, 'Wanda Maximoff', 'Judge', 'Olympic Village', 305);
-
+(3, 'John Doe', 'Referee', 'Olympic Village', '201'),
+(4, 'Jane Smith', 'Judge', 'Olympic Village', '202'),
+(5, 'Michael Johnson', 'Referee', 'Olympic Village', '203'),
+(6, 'Sarah Lee', 'Judge', 'Olympic Village', '204'),
+(7, 'Chris White', 'Referee', 'Athletes Inn', '205'),
+(8, 'Emily Brown', 'Judge', 'Olympic Village', '206'),
+(9, 'David Green', 'Referee', 'Olympic Village', '207'),
+(10, 'Laura Taylor', 'Judge', 'Olympic Village', '208');
 
 INSERT INTO TeamSponsor (SponsorName)
 VALUES
@@ -757,22 +765,36 @@ FROM Transportation
 	AND EventEndTimeStamp = '2024-07-25 17:00:00'
 	AND VenueName = 'National Stadium';
     
-    
-SELECT 
-    t.CountryName, 
-    t.SportID, 
-    s.Name AS SportName, 
-    COUNT(a.ID) AS teamSize
+SELECT SUM(AthleteCount.Count + OfficialCount.Count) AS TotalCount
 FROM 
-    Athlete a
+    (SELECT COUNT(*) AS Count
+     FROM Athlete
+     WHERE AccommodationName = "Olympic Village") AS AthleteCount
 JOIN 
-    Team t ON a.CountryName = t.CountryName AND a.SportID = t.SportID
-JOIN 
-    Sport s ON a.SportID = s.ID
-WHERE 
-    t.SportID = 101
-GROUP BY 
-    t.CountryName, t.SportID, s.Name
-HAVING 
-    teamSize < 12 OR teamSize > 15;
+    (SELECT COUNT(*) AS Count
+     FROM Official
+     WHERE AccommodationName = "Olympic Village") AS OfficialCount;
+     
+SELECT Sport.Name, Event.BeginTimeStamp, Event.EndTimeStamp
+	FROM Event, Sport
+	WHERE Event.SportID = Sport.ID
+	AND BeginTimeStamp >= '2024-07-21 00:00:00'
+	AND EndTimeStamp <= '2024-07-23 23:59:59';
+    
+SELECT Name, (NumGolds + NumSilver + NumBronze) AS TotalMedals
+	FROM Country
+	WHERE Name = "Canada";
+    
+SELECT *
+	FROM Country
+	ORDER BY NumGolds DESC, NumSilver DESC, NumBronze DESC;
+
+SELECT SEC_TO_TIME(TIMESTAMPDIFF(SECOND, BeginTimeStamp, EndTimeStamp)) AS Duration, Sport.Name
+	FROM Event, Sport
+    WHERE Event.SportID = Sport.ID
+	AND VenueName = 'National Stadium';
+
+
+
+
 
